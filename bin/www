@@ -5,14 +5,15 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('async-assignment:server');
+var startupService = require('../services/startupService');
+var debug = require('debug')('chat:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 
 /**
@@ -20,6 +21,12 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Starting Sockets Service.
+ */
+
+startupService.initializeSocket(server);
 
 /**
  * Listen on provided port, on all network interfaces.
